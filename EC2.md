@@ -277,6 +277,56 @@ memorydb
       - encrypted to encypted AMI ✔️
       - unencrypted to encrypted AMI ✔️
       - encrypted to unencrypted AMI ❎
+   
+# s3 (simple storage sevice)
+  - is an object based storage 🔥
+  - unlimited storage
+  - not for OS or DB storage
+  - 0 - 5tb
+  - files are stored in buckets
+  - all accounts share the same namespace, so all buckets should be globally unique
+  - https://<bucket name>s3.<region name>.amazonaws.com/<key name>
+  - 200 status code on successfull upload
+  - **key** is the name of the object , **value** is the data iteself(bytes) , **version id**, **metadata** (data about data for eg. content-type, last modified etc)
+  - higly available and highly durable
+  - offers tiered storage
+  - lifecycle management (transition objects to cheaper teir or delete them)
+  - versioning
+
+
+    ## security
+    - server side encyption - set default encryption on a bucket
+    - ACLS - define which AWS accounts or groups are granted access and the type of access
+    - bucket policies - specifies which actions are allowed or denied
+   
+    ## s3 storage classes
+
+
+
+
+
+# Serverless computing
+
+  ## Lambda
+  - are **event-driven** and you are only charged when your code is executed
+  - provides continuos scaling and scales automatically
+  - enables you to build scalable apps quickly w/o managing any servers
+  - AWS handles all the heavy lifting, so you can focus on writing code
+  - lambda, SQS, SNS, API gateway
+  - they are usually stateless, but dynamo db and s3 can be used to store data
+  - lambda triggers: dynamod db, kinesis, sqs, alb, api gateway, clouldforon, s3, sns, ses, clould formation etc.
+  
+  ## API gateway
+  - service which allows to publish, maintain, monitor and secure api's at any scale
+  - supported api types
+      - RESTful apis : optimized for stateless, serverless workloads
+      - Webscocket apis : for real time, two way, stateful communication eg. chat apps
+   
+  - allows you to connect ot apps running on lambda, ec2, dynamodb etc
+  - supports multiple endpoints and targets
+  - supports multiple version
+  - logs calls, latencies, error rates to cloudwatch
+  - helps you manage traffic with throttling so that backend operations can withstand traffic spikes and denial of service attacks
     
 
   
