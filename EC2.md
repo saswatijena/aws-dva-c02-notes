@@ -7,28 +7,28 @@
   - no wasted capacity, allows to grow and shrink your infrastructure to suit the needs of your capacity
   -  pay only for what you use 🔥
 - You re in complete control of your own instances
-- instance type determines the hardware of the host computer 🔥
+- instance type determines the hardware of the host computer (diff compute, memory. storage capabilites) 🔥
 
 ## Pricing models
 
-  - On Demand
+  - **On Demand**
       - pay by the hour or the second depending on the type of instance you run
-  - Reserved:
+  - **Reserved**
       - reserved capacity for one or three years. Up to 72% discount on the hourly charge 
       - great for applications with steady state
       - standard RI
       - convertible RI : has option to change to different reserved instance type
       - scheduled RI: launch within the time window you define
-  - Spot
+  - **Spot**
       - Purchase unused capacity at a discount up to 90%
       - prices fluctuate with supply and demand
       - great for application that have flexible start and end times
       - great for urgent ened for large amounts of additional computing capacity
-  - Dedicated
+  - **Dedicated**
       - a physical EC2 server dedicated for your use. Most expensive
       - great for compliance and licensing
       - can be purchaed on demand or reserved
-  - Savings plan
+  - **Savings plan**
       - commit to one or three years to get discounted prices
    
 
@@ -42,45 +42,45 @@
 
 ## Types of EBS 🔥 [EBS Volume Types](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html)
 
-  - General Purpose SSD (GP2)
+  - **General Purpose SSD (GP2)**
     - suitable for boot disks and general applications
     - 3 iops per GiB
     - upto 16K IOPS per volume
     - 99.9% durability
-  - General Purpose SSD (GP3)
+  - **General Purpose SSD (GP3)**
       - suitable for boot disks and general applications
-      - 3K iops per GiB
+      - baseline 3K iops per GiB
       - upto 16K IOPS per volume
       - 99.9% durability
       - latest generation 
-  - Provisioned IOPS SSD (io1)
+  - **Provisioned IOPS SSD (io1)**
       - High performance and most expensive
       - suitable for online transaction processing and latency-sensitive applcations
       - 50 iops per GiB
       - upto 64K IOPS per volume
       - 99.9% durability
       - I/O intensive applications (large databases and latency sensitive applications)
-  - Provisioned IOPS SSD (io2)
+  - **Provisioned IOPS SSD (io2)**
       - High performance
       - latest generation, same as io1
       - 500 iops per GiB
       - upto 64K IOPS per volume
       - 99.999% durability (more durable than io1) 🔥
       - I/O intensive applications (large databases and latency sensitive applications)
-  - Provisioned IOPS SSD io2 Block Expres
+  - **Provisioned IOPS SSD io2 Block Express**
       - 4x throughpuut IOPS and capacity of regular io2 volumes
       - for mission critical, high-performance applications
       - 256K IOPS per volume
       - 99.999% durability
       - AWS SAN in the cloud offering
-  - Throughput Optimized HDD (st1)
+  - **Throughput Optimized HDD (st1)**
       - low cost HDD volume
       - frequenctly accessed throughput intensive workloads
       - big data, date warehouses , ETL and log processing
       - cannot be a boot volume
       - max throughput isn 500MB/s per volume
       - 99.9% durability
-  - Cold HDD (sc1)
+  - **Cold HDD (sc1)**
       - Lowest cost option
       - data which requires fewer scans per day
       - max throughput isn 250MB/s per volume
@@ -99,10 +99,10 @@
   A load balancer distributes network traffic across a group of servers
   we can increase capacity as needed
 
-  - Application load balancer (HTTP and HTTPS) - Operate at layer 7 and are application aware
-  - Network load Balancer (TCP and high performance and expensive) - Operates at Layer 4
-  - Classic load balancer (HTTP/HTTPS and TCP ) [Legacy option]
-  - Gateway load balancer 🆕 - provides load balancing for third-party virtual applications, like firewalls, intrusion detection and prevention systems (cisco, palo alto etc)
+  - **Application load balancer (HTTP and HTTPS)** - Operate at layer 7 and are application aware
+  - **Network load Balancer (TCP and high performance and expensive)** - Operates at Layer 4
+  - **Classic load balancer (HTTP/HTTPS and TCP )** [Legacy option]
+  - **Gateway load balancer** 🆕 - provides load balancing for third-party virtual applications, like firewalls, intrusion detection and prevention systems (cisco, palo alto etc)
 
 
   ## What is 7 Layer Model [!not important]
@@ -121,14 +121,20 @@
 | Layer 1 (Physical) | Transmits bits and bytes over physical devices |
 
 ## What is x-forwaded-for 🔥
-if you need the IPV4 address of your end user, look for the **X-Forwaded-For header**, since the server will recieve the header of the loadbalancer
+if you need the IPV4 address of your end user, look for the **X-Forwaded-For header**, since the server will recieve the header of the loadbalancer. supported by application and classic load balancer.
+
+# Route 53 
+amazons DNS service 
+**hosted zone** : container for DNS records for your domain
+**alias** : allows you to route traffic addressed to the zone apex, or the top of the DNS namespace
+**a record** : allows you to route traffic to a resource, such as a web server, using and IPv4 address.
 
 # AWS CLI   
 
   - Always give your users the minimum amount of access required to do their job
   - Best practice to create groups and assign users to groups
   - group permissions are assigned through policies
-  - you only see secret access key once
+  - you only see secret access key once, if you loose it you would need to regenerate them and run ``` aws configure ``` again
   - dont share key pairs
   - aws cli is supported in linux, winows and mac and ec2 instances (comes with aws cli installed)
   - if you see errors like timed out or errors related to too many results being returned, adjust the pagination in of CLI  --page-size , CLI still retrieves the full list, but performs a larger number of API calls in the background and retrieves a smaller number of items with each call.
@@ -145,10 +151,10 @@ if you need the IPV4 address of your end user, look for the **X-Forwaded-For hea
 
   ## Features 
 
-  - Multi AZ
+  - Multi AZ 
   - Failover capability
   - Automated back ups
-  - types : sql server, arora, porsgres, oracle, maria
+  - types : sql server, arora, portgres, oracle, maria
   - designed fro OLTP
   - not suitable for OLAP (redshift should be used instead)
 
@@ -159,6 +165,121 @@ if you need the IPV4 address of your end user, look for the **X-Forwaded-For hea
 
   OLAP (Online analytics processing)
   - processes complex queries to analyze historical data (analyzing net profit figures from past 3 years, sales forecasting etc)
+
+## Multi AZ
+
+  - (exact copy of prod database in another availibility zone)
+  - provides resilience
+  - its for disaster recovery, not for improving performance (in the event of failure, RDS will failover to the standby instance)
+
+## What is read replica
+
+  A read only copy of your primary database, used to improve performance, which can be used to run reports etc w/o impacting the customer performance
+  - can be located in the same AZ or diff AZ or altogether a diff region
+  - each replica has different endpoints
+  - primarily used for scaling read performance
+  - requires atomatic back ups
+  - multiple read replicas are supported upto 5
+
+## Ways to backup RDS
+  ### Manual Databse snapshot
+  - are user initiated
+  - no retention period, live forever
+  - back up to a known state
+  - no transaction logs
+
+  ### Automated backup
+  - enabled by default
+  - point in time recovery (with the help of snapshots and transaction logs)
+  - perfomes full daily back up (stored in s3 [free]) and store transactions logs
+  - you defined the back up window
+  - retention period of 1-35 days
+
+replaced version is a new RDS enpoint with a new DNS enpoint
+
+  ## Encyption at rest   
+  - can be enabled at creation time
+  - integrated wtih KMS AES-256
+  - encrypts all db storage ( automated back ups, snapshots, logs, read replicas etc)
+  - you cant enable encryption on an unencrypted RDS DB instance.
+  - workaround to encrypt an existing db : take a snapshot , create an encrypted snapshot and perfome a database restore
+
+  ## Increasing scalability using RDS proxy
+  - sits b/w user and db. it pools and shares db connections to assist with app scalability and db efficiency.
+  - its serverles and scales automatically
+  - preserves application connection during failover and routes requests to standby quickly
+  - deployble over multi-az for protection
+  - upto 66& faster failover times
+
+# Elasticache
+ - in memory cache
+ - key value data store
+ - designed to improve db performance for read heavy db workloads
+ - really useful for storing sessiond data for ditributed applications
+ - great option when db is ready heavy
+ - not helpful for db with heavy write loads, instead scale db
+ - not helpful for olap queries (redshift instead)
+
+two options for elasticache
+  ## memchached
+  - for basic *simple object caching*
+  - scales horizontally
+  - not *persistence* , multi az or failover
+  - no support for data sorting and ranking
+
+  ## Redis
+  - sophisticated solution with enterprise fetures like *persistence*, replication, multi az, failover etc
+  - allows data sortng, ranking such as gaming leader borads
+  - advnaced data types, such as *lists and hashes*
+
+
+# Memory db for redis 
+- in memory db
+- multi az and has transaction log for recovery and durability
+- can be used as primary database
+- ultra fast performance
+- great for ultra fast redis compatible, high performance, low latency, eg online gaming company
+
+# Diff b/w elasticache and memory db for redis 
+elacticache
+ - in memory db
+ - fast but not ultra fast
+ - eg. for storig session data
+
+memorydb
+  - used as primary db
+  - ultra fast
+  - online gaming company which required massive concurrent users sharing digital assets
+  - can store entire data set in memory
+
+# System management parameter store
+- store parameters for applications like licence keys, cofiguration variables etc
+- can be store in plain text or encrypted
+- can be used with EC2, clould formation, lambda etc
+
+# AWS Secrets Manager
+- used to store secrets
+- can **automate rotation** (30, 60, 90 or custom # of days. create new of existing lambda for rotation)
+- allows to secure using fine grain permission and encypt using KMS (Customer master keu, can encypt upt 4kb of data)
+- can be used to strore database secrets (db username and pass, server address, db name and port)
+- secrets for RDS db, redshift cluster, documetdb, other db, api keys
+
+# EC2 Image builder 
+  - automates the process of creating and maintaining your images
+  - it a 4 step process
+  - base OS -> add software (apache, tomcat, python etc) -> run tests on new image to see if it boots correctly -> distribute the image ot o the regions of your choice (default is the region you are operating on)
+
+# Using AMI in a diff region
+  - ami only exists in a single region
+  - can be used in diff region by creating a copy
+  - when copying AMI following options are supported (you can apply encryption during copying, but cannot remove encryption)
+      - unecrypted to unencypted AMI ✔️
+      - encrypted to encypted AMI ✔️
+      - unencrypted to encrypted AMI ✔️
+      - encrypted to unencrypted AMI ❎
+    
+
+  
 
   
   
