@@ -1,4 +1,5 @@
 # Elastic Compute Cloud (EC2)
+
 - Secure, resizable compute capacity in the cloud
 - its ike a VM hosted in AWS instead of your own data center 🔥
 - Designed to make web-scale cloud computing easiter for developers 
@@ -9,6 +10,7 @@
 - instance type determines the hardware of the host computer 🔥
 
 ## Pricing models
+
   - On Demand
       - pay by the hour or the second depending on the type of instance you run
   - Reserved:
@@ -31,13 +33,15 @@
    
 
 # Elastic Block Store (EBS Volumes)
-  - storage volumes you can attach to ED2 instances
+
+  - storage volumes you can attach to EC2 instances
   - when you first launch EC2 it has at least 1 EBS volume which runs the operating system
   - designed for mission critical workloads
   - highly available
   - highly scalable
 
 ## Types of EBS 🔥 [EBS Volume Types](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html)
+
   - General Purpose SSD (GP2)
     - suitable for boot disks and general applications
     - 3 iops per GiB
@@ -61,7 +65,7 @@
       - latest generation, same as io1
       - 500 iops per GiB
       - upto 64K IOPS per volume
-      - 99.999% durability (more durable than io1)
+      - 99.999% durability (more durable than io1) 🔥
       - I/O intensive applications (large databases and latency sensitive applications)
   - Provisioned IOPS SSD io2 Block Expres
       - 4x throughpuut IOPS and capacity of regular io2 volumes
@@ -83,10 +87,11 @@
       - cannot be a boot volume
       - 99.9% durability
  
-## Encyption
+## Encyption 🔥
+
   - Default encryption: If encription by default is set on your account by your account admin, you cannot create unencrypted EBS volumes
   - Encrypted snapshots: If you can create an EBS volume from an encrypted snapshot, then you will get an encrypted volume.
-  - Unencypted snapshots: encyptions is option only if default encryption is not set
+  - Unencypted snapshots: encyption option is only availaible if default encryption is not set
 
 
 # Elastic Load Balancer 🔥
@@ -116,7 +121,46 @@
 | Layer 1 (Physical) | Transmits bits and bytes over physical devices |
 
 ## What is x-forwaded-for 🔥
-if you need the IPV4 address of your end user, look for the X-Forwaded-For header, since the server will recieve the header of the loadbalancer
+if you need the IPV4 address of your end user, look for the **X-Forwaded-For header**, since the server will recieve the header of the loadbalancer
 
+# AWS CLI   
+
+  - Always give your users the minimum amount of access required to do their job
+  - Best practice to create groups and assign users to groups
+  - group permissions are assigned through policies
+  - you only see secret access key once
+  - dont share key pairs
+  - aws cli is supported in linux, winows and mac and ec2 instances (comes with aws cli installed)
+  - if you see errors like timed out or errors related to too many results being returned, adjust the pagination in of CLI  --page-size , CLI still retrieves the full list, but performs a larger number of API calls in the background and retrieves a smaller number of items with each call.
+
+# EC2 to S3 or other AWS resources
+
+  - IAM Roles are the preffered option to access AWS resources
+  - Avoid hardcoding your credentials
+  - policies control a role's permissions
+  - you can attach or dettach roles from running ec2 instances
+  - you can update a policy for a role and it will take effect immediately
+
+# RDS 
+
+  ## Features 
+
+  - Multi AZ
+  - Failover capability
+  - Automated back ups
+  - types : sql server, arora, porsgres, oracle, maria
+  - designed fro OLTP
+  - not suitable for OLAP (redshift should be used instead)
+
+  ## What is the difference b/w OLTP and OLAP
+
+  OLTP (Online transaction processing)
+  - large number of small transactions in real time (orders, banking transactions, payments, booking systems)
+
+  OLAP (Online analytics processing)
+  - processes complex queries to analyze historical data (analyzing net profit figures from past 3 years, sales forecasting etc)
+
+  
+  
   
   
