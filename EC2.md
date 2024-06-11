@@ -280,17 +280,17 @@ memorydb
    
 # s3 (simple storage sevice)
   - is an object based storage 🔥
-  - unlimited storage
+  - unlimited storage 🔥
   - not for OS or DB storage
-  - 0 - 5tb
+  - 0 - 5tb 🔥
   - files are stored in buckets
-  - all accounts share the same namespace, so all buckets should be globally unique
-  - https://<bucket name>s3.<region name>.amazonaws.com/<key name>
-  - 200 status code on successfull upload
-  - **key** is the name of the object , **value** is the data iteself(bytes) , **version id**, **metadata** (data about data for eg. content-type, last modified etc)
+  - all accounts share the same namespace, so all buckets should be globally unique 🔥
+  - https://<bucket-name>s3.<region-name>.amazonaws.com/<key-name>
+  - 200 status code on successful upload
+  - **key** is the name of the object , **value** is the data iteself(bytes) , **version id**, **metadata** (data about data for eg. content-type, last modified etc) 🔥
   - higly available and highly durable
   - offers tiered storage
-  - lifecycle management (transition objects to cheaper teir or delete them)
+  - lifecycle management (transition objects to cheaper tier or delete them)
   - versioning
 
 
@@ -300,6 +300,35 @@ memorydb
     - bucket policies - specifies which actions are allowed or denied
    
     ## s3 storage classes
+    - s3 standard
+      - high availibility and durability
+      - designed for frequent access
+      - websites, content distribution, data analytices
+     
+    - s3 standard-infrequent access (S3-IA)
+      - ong term, infrequently accessed, non-critical data but access rapidly
+      - pay to access data
+      - minimum storage duration is 30 days
+      - backups, disaster recovery
+     
+    - s3 one zone-infrequent access
+      - long term, infrequently accessed, non-critical data
+      - like s3-ia but data is stored redundently within a single AZ
+      - 20% les than regular s3-ia
+      - minimum 30 days duration
+    
+    - s3 glacier
+      - cheap
+      - good for long term archiving that needs to be accessed occasionally within a few hours or minutes
+      - you pay each time to access data
+      - 90 days storage minimum duration
+     
+    - Glacier deep archive
+      - financial data access once or twice a year
+      - 180 days minimum storage
+     
+    - S3 - Intelligent tiering
+      - automatically moves your data to the most cost effective tier based on how frequently you access each object
 
 
 
@@ -321,7 +350,6 @@ memorydb
   - supported api types
       - RESTful apis : optimized for stateless, serverless workloads
       - Webscocket apis : for real time, two way, stateful communication eg. chat apps
-   
   - allows you to connect ot apps running on lambda, ec2, dynamodb etc
   - supports multiple endpoints and targets
   - supports multiple version
