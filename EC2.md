@@ -281,12 +281,12 @@ memorydb
 # s3 (simple storage sevice)
   - is an object based storage 🔥
   - unlimited storage 🔥
-  - not for OS or DB storage
+  - not for OS or DB storage 🔥
   - 0 - 5tb 🔥
   - files are stored in buckets
   - all accounts share the same namespace, so all buckets should be globally unique 🔥
-  - https://<bucket-name>s3.<region-name>.amazonaws.com/<key-name>
-  - 200 status code on successful upload
+  - https://<bucket-name>s3.<region-name>.amazonaws.com/<key-name> 🔥
+  - 200 status code on successful upload 🔥
   - **key** is the name of the object , **value** is the data iteself(bytes) , **version id**, **metadata** (data about data for eg. content-type, last modified etc) 🔥
   - higly available and highly durable
   - offers tiered storage
@@ -295,43 +295,102 @@ memorydb
 
 
     ## security
+    - all newly created buckets are private
     - server side encyption - set default encryption on a bucket
-    - ACLS - define which AWS accounts or groups are granted access and the type of access
-    - bucket policies - specifies which actions are allowed or denied
+    - ACLS
+       - define which AWS accounts or groups are granted access and the type of access
+       - Grant access to object level
+    - bucket policies
+       - specifies which actions are allowed or denied
+       - applied at bucket level
+       - written in json
+     
+    s3 provides access logs which is not enabled by default. 
    
-    ## s3 storage classes
+    ## s3 storage classes 🔥
+    all are 99.99% availability and 11 9's durability except the once where specificall mentioned below
     - s3 standard
       - high availibility and durability
       - designed for frequent access
       - websites, content distribution, data analytices
      
     - s3 standard-infrequent access (S3-IA)
-      - ong term, infrequently accessed, non-critical data but access rapidly
+      - ong term, infrequently accessed, critical data but access rapidly
       - pay to access data
       - minimum storage duration is 30 days
       - backups, disaster recovery
+      - 99.9% availibility
      
     - s3 one zone-infrequent access
       - long term, infrequently accessed, non-critical data
       - like s3-ia but data is stored redundently within a single AZ
       - 20% les than regular s3-ia
       - minimum 30 days duration
+      - 99.5% availibility
     
-    - s3 glacier
+    - s3 glacier instant retrival
+      - cheap
+      - good for long lived data, accessed once per quarter and needs millisecons retireval time
+      - you pay each time to access data
+      - 90 days storage minimum duration
+      - 99.9 % availability
+    
+    - s3 glacier flexible retrival
       - cheap
       - good for long term archiving that needs to be accessed occasionally within a few hours or minutes
       - you pay each time to access data
       - 90 days storage minimum duration
      
     - Glacier deep archive
+      - Rarely accessed data archiving, with a default retrieval time of 12 hours
       - financial data access once or twice a year
       - 180 days minimum storage
      
     - S3 - Intelligent tiering
+      - unknow or unpredictable access patterns
       - automatically moves your data to the most cost effective tier based on how frequently you access each object
+      - minimum 30 days duration
+     
+    ## s3 encryption
+    - Encryption in Transit (SSL/TLS , HTTPS)
+   
+    - Encyption at rest (Server side encryption)
+      - SSE-S3 - s3 managed keys, enabled by default (AES 256-bit)
+      - SSE-KMS - AWS key managements service
+      - SSE-C - Customer provided keys
+     
+    - Encryption at rest (client side encyption)
+      you encrypt the files before uploading the files on s3
+
+    - how will you enforce encryption with a bucket policy
+      explicitly deny requests that do not include the z-amz-server-side-encryption parameter in the request header. Deny requests that do not use aws:SecureTransport to enforce the use of HTTPS/SSL
 
 
+    ## CORS Configuration
+    can be used to allowed resources in one s3 bucket to access resources located in another s3 bucket
 
+# Cloud front
+  - content delivery network
+  - system of distributed servers to deliver content at hign speed
+  - good for low latency and high data transfer speeds.
+  - **cloud front edge location** : location where the content is cached. spearate to an AWS Region/AZ (they are not read only, you can put object on them)
+  - **cloud front origin** : origin of the files that the distribution will server. can be and s3 bucket, ec2 instance, ELB or Route 53 or your own data center
+  - **cloud from distribution**: the name given to the origin and configuration settings for the content you wish to distribute using CDN
+  - TTL is 1 day, you can clear the cache yourself before TTL is up but you will be charged
+  - used with another service called **s3 transfer acceleration** (faster transfer of files)
+  - OAI (Origin access identity) is a special cloudfront user that can access the files in our bucket and server them to users, this has chaned to OAC [origin access control list](https://d3vp103kmhys3j.cloudfront.net/1620297128238-cute_dog.jpg)
+  - OAI allows us to restrict access to the content of our bicket, so that all users must use the cloudfrom URL instead of a direct s3 url
+  - what are cloud fornt allowed methods
+      - GET, HEAD  - read
+      - GET, HEAD, OPTIONS - read
+      - GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE - read and write
+   
+  - AWS certificate manager is used to create and manage SSL/TLS to enable secure connections using https. When using ACM with cloudfront, the certificate must be created in the us-east-1 region.
+   
+# Athena
+  - interactive query 
+  - enables you to run sql on s3
+  - useful for quering logs stored in s3, performing cost analysis, generate business reports, run queries on click stream data
 
 
 # Serverless computing
