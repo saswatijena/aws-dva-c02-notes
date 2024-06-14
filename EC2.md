@@ -403,6 +403,21 @@ memorydb
   - lambda, SQS, SNS, API gateway
   - they are usually stateless, but dynamo db and s3 can be used to store data
   - lambda triggers: dynamod db, kinesis, sqs, alb, api gateway, clouldforon, s3, sns, ses, clould formation etc.
+
+  ## versioning
+  - $latest is the latest version
+  - use lambda versioning ans aliases to point your applications to a specific version
+  - update your aliases when updating the code
+    
+  ## concurrent executions
+  - default is 1000 per regions
+  - 429 http status code for too many requests exception, request troughput limit exceeded
+  - request an increase in limit by submitting a request to AWS support center or configure reserved concurrency (guarentees a set number of executions which will always be available for your critical function, however this also acts as a limit)
+
+  ## lambda and vpc access 
+  - its possible to enable lambda to access resources that are inside a private vpc
+  - to do that we need to provide vpc id, private subnet id, security group id
+  - lambda creates ENI(elastic network interfaces) using IPs from the private subnets. The security group allows your function to access the resources in the vpc.
   
   ## API gateway
   - service which allows to publish, maintain, monitor and secure api's at any scale
@@ -414,7 +429,92 @@ memorydb
   - supports multiple version
   - logs calls, latencies, error rates to cloudwatch
   - helps you manage traffic with throttling so that backend operations can withstand traffic spikes and denial of service attacks
-    
+
+ ### Advanced api gateway
+  - you can import api's using the external definition files eg. open api formerly known as swagger
+  - when dealing with legacy applications which use SOAP, you can configure api gateway as a SOAP web service passthrough, or you can use api gateway to convert the xml response to json
+
+### api gateway mock endpoints
+- allows developers to create,test and debug software by creating mock endpoints
+
+### api gateway stages for testing deployed code
+- logical reference referencing the lifecycle stage of api (eg. dev, prod, v3 etc)
+- stage variables are key value pair to change the behaviour of api  (dynamic deployments)
+
+### api request and response transformations 
+- can transform api request and response using paramter mapping
+- request transformation : change header, query string or request path
+- response transformation : change the header or status code of an api response
+
+### api gateway caching and throttling
+- caches responses for specified TTL (5 mins default), improves performance and latency
+- throttling is to prevent your gateway from being overwhelemed with too many requests. 10K requests per second oer regions, 5k max concurrent requests across all api's per region. 429 too many error, you can request to increase the limit
+
+
+  ## characteristic of event-driven architecture
+  - asynchronous
+  - loosely coupled
+  - single prupose functions
+  - helps with independent scalability and availibility
+  - event source (s3, dynamodb) --> Event Router (EventBridge) --> Event destination (SNS, Lambda)
+
+  ## step functions
+  - great way to visualize serverless apps
+  - automates trigger and track of each step. The output of one step is often the input to the next.
+  - logging, so you can track when someting goes wrong
+  - **standarad workfolows**
+      - long running, durable and auditable workflows that may run upto a year.
+      - tasks are never executed more than once unless you explicitly specidy retry actions
+      - non-idemptent(cannot be processed multiple times and always causes a change in state) actions like processing payements
+  - **express workflows**
+      - great for high volume, event processing type workloads
+      - executed more than once or require multiple concurrent execution
+      - idempotent , no additional side effects
+      - **synchronous express workflow**, begins, waits until it completes, returns the result
+      - **asynchronous express workflow**, confirms the workflow has started and result is returned later. the result of the workflow can be found in cloudwatch logs.
+   
+ ## lambda data storage patterns
+ - **ephemeral storage** /tmp : temporary storage : 512 MV , configurable up to 10 gb, only available for the lifetime of the execution environment 
+ - storing lambda libraries : additional libraries needed by the function can be included in your lambda deployment package, this increases the deployment package size.
+ - add libraries and sdks as a layer that can referenced by multiple functions (best practice) (50MB zipped and 250 MB unzipped) updates requires a new layer
+ - s3 (object storage only) : cannot directly open and write data to objects
+ - EFS - shared file system, data is persisted and can be dynamically updated , must be in the same vpc
+
+## lambda environment variables and parameters
+- use environment variables are key value pairs to change function behavior without changing code
+- configureable parameters: memeory, ephemeral storage, connect to other aws services like cloud watch, x-ray , vpc and efs file systems, monitoring, concurrency
+
+## Lambda event lifecycle and errors
+- when invoking a function you can invoke it synchronously or asynchronously
+- if a function errors, lambda automatically performs 2 retries, waits for 1 min for 1st try and then 2 min for 2nd try
+- dead letter queues : save failed invocations for further invocations , SQS or SNS (fan-out to multiple destinations) can be used
+- lambda destinations, configure lambda to send the invocaiton records(success or error) to another servers (eg, for success send to SQS and error send to SNS)
+    - SQS
+    - SNS
+    - lambda (invoke another lambda)
+    - EventBridge
+
+## lambda deployment packaging options
+- console: a zip file is automatically created in the background
+- zip file contains app code and dependencies (optionally)
+- if deployment package is more than 50 mb, upload on s3
+- lambda layers is a distribution mechanism , where it can use used by multiple functions, reducing the size of deployment package
+
+## lambda performance tuning best practices 
+- contol cpu capacity by controlling memory - increasing memory increases cpu
+- 128 MB to 10 GB
+- optimizing static initializations step
+    - amount of code that needs to run during initialization
+    - including imported libraies , depedencites and lambda layers
+    - libraries and other services that require connections to be set up
+    - avoid importing entire sdk 🔥
+ 
+## x-ray 
+- is a tool which helps developers analyze and debug distributed applications
+- provides a service map which is visual representation of app
+- x-ray agent must be installed on ec2 instance. use sdk to instrument your application to send traces to x-ray
+
+
 
   
 
