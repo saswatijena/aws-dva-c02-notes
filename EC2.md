@@ -524,11 +524,66 @@ memorydb
 - key management service
 - cmk (customer managed key) -
 - set up cmk : crated alis and description -> choose key material option -> define Key administrative permissions (iam users and roles that can administer but not use the key) -> key usage permissions (iam users and roles that can use the key to encrypt and decrypt data)
-- aws managed cmk used on your behald with the aws services integrated with kms  like s3, redis etc
-- customer managed cmk - you manage yourself
+- **aws managed cmk** used on your behald with the aws services integrated with kms  like s3, redis etc
+- **customer managed cmk** - you manage yourself
 - data key : encryption keys that you can use to encrypt data. you can use scmk to generate, encrypt and decrypt data keys
-- ```aws kms encrypt``` to encrypt
+- ```aws kms encrypt``` to encrypt plain text to ciphertext
 - ```aws kms decrypt``` to decrypt
+- ```aws kms re-encrypt``` takes an encryped file and decrypts it in memory, does not saves it and encrypts it again, if you want to encrypt using a diff cmk eg. manually rotate cmk
+- ```aws kms enable-key-rotation``` automatically rotates on an annual basis, store previous versions of key if you wanted to decrypt old files
+- ```aws kms generate-data-key``` returns a plain and cyper-text version of data key , uses the cmk to generate the data key to encrypt data > 4kb
+- **envelope encryption process**
+  - encryption the key which encrypts the data.
+  - CMK is userd to encrypt the data key
+  - only encrypted data key is sent over network, avoiding the need to transer large amounts of data to kms
+  - used fror encrypting anything over 4kb
+ 
+- **AWS certificate manager** used to create SSL/TLS certificates
+    - secures connections over https
+    - when using acm with cloud from, you must create the certificate in us-east-1
+
+## SQS 
+- a distributed message queue service
+- **decouple applications components** so that they can run independently
+- messages can contain 256 kb of text in any format
+- eg when the producer is producing results faster than consumer, network connectivity gets inturrupted
+- its pull based not pushed base (messages are pulled out, not pushed out)
+- retention is max 14 days, default 4 days
+- types of sqs
+    - standard queues
+        - unlimited transactions
+        - guarantees a message will be delivered at least once
+        - best effect ordering , meaning a couple of messages may not be in order and may have duplicates
+     
+    - FIFO
+        - ordering is strictly preserved
+        - no duplicates
+        - 300 Transactions per second limit
+        - guarantees a message will be delivered at least once
+        - great for banking applications
+     
+- visibility timeout is the amount of time that the message is invisible in the sqs queue after a reader picks up that message, default is 30s
+    - if the job is not processed in the 30s then another reader will pick up the message
+    - if the reader takes longer than 30s then you would need to increase the visibility time out (max 12hrs)
+ 
+- short polling
+    - can result in lot of empty responses, expensive 
+- long polling
+    - does not returns a response until a response arrives or the long poll times out, can save money!
+ 
+- sqs delay queues
+    - postpone delivery of new messages to a queue for a number of seconds
+    - messges sent remain invisible to consumers for the duration of delay period
+    - default delay is 0 seconds, max is 900
+    - for standard queues this setting doesnt affect the delay of messages already in the queue, only new messages
+    - for FIFO, this affects the delay of messages already in the queue
+    - eg for large distribution apps
+ 
+- managinging large sqs messages
+    - over 256kb upto 2gb in size
+    - use s3 to store these messages
+    - use amazon sqs extended client library for java
+    - also need aws sdk for java
 
 
 
