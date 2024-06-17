@@ -519,6 +519,16 @@ memorydb
 - annotations
     - when instrumenting your app you can record additional information about requests by using annotations
     - the are kye value pairs
+ 
+# KMS and encrption
+- key management service
+- cmk (customer managed key) -
+- set up cmk : crated alis and description -> choose key material option -> define Key administrative permissions (iam users and roles that can administer but not use the key) -> key usage permissions (iam users and roles that can use the key to encrypt and decrypt data)
+- aws managed cmk used on your behald with the aws services integrated with kms  like s3, redis etc
+- customer managed cmk - you manage yourself
+- data key : encryption keys that you can use to encrypt data. you can use scmk to generate, encrypt and decrypt data keys
+- ```aws kms encrypt``` to encrypt
+- ```aws kms decrypt``` to decrypt
 
 
 
