@@ -547,7 +547,7 @@ memorydb
 - **decouple applications components** so that they can run independently
 - messages can contain 256 kb of text in any format
 - eg when the producer is producing results faster than consumer, network connectivity gets inturrupted
-- its pull based not pushed base (messages are pulled out, not pushed out)
+- its **pull based**, not pushed base (messages are pulled out, not pushed out)
 - retention is max 14 days, default 4 days
 - types of sqs
     - standard queues
@@ -579,12 +579,26 @@ memorydb
     - for FIFO, this affects the delay of messages already in the queue
     - eg for large distribution apps
  
-- managinging large sqs messages
+- managing large sqs messages
     - over 256kb upto 2gb in size
     - use s3 to store these messages
     - use amazon sqs extended client library for java
     - also need aws sdk for java
 
+# SNS 
+- webservice to set up, operate and send notifications from the cloud
+- you can use it to create push notifications
+- can be used to trigger another lambda or another aws service like sqs etc
+- a **pub-sub** model, push based not pull based
+
+# SES (Simple Email Service)
+- designed to help marketing teams and app developers to send marketing, notifications, transactions emails
+- you can use it to send automated emails, eg, confirm online purchase
+- can be used to trigger lambda or sns
+- can be used for both incoming and outgoing email
+- email only
+- icoming emails saved to s3
+- is not subscription based
 
 
   
