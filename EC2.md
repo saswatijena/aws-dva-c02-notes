@@ -513,6 +513,12 @@ memorydb
 - is a tool which helps developers analyze and debug distributed applications
 - provides a service map which is visual representation of app
 - x-ray agent must be installed on ec2 instance. use sdk to instrument your application to send traces to x-ray
+- reports on latency, http status code and errors
+- needs x-ray sdk (for instrumentation) and x-ray deamon
+- x-ray deamon needs to be installed on EC2 instances or on prem servers. But containers, install x-ray deamon in its own docker container on your ECS cluster along side your app
+- annotations
+    - when instrumenting your app you can record additional information about requests by using annotations
+    - the are kye value pairs
 
 
 
