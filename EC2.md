@@ -616,6 +616,14 @@ memorydb
 - kinesis data analytics
     - analyze, query and transform streamed data in **real time** using standard sql
     - source is kinesis streams or firehose to redshift , s3, opensearch
+ 
+- the data capacity of your steam is the sum total capacity of its shards
+- per shard - 5 reads transactions per second upto max of 2MB per second
+- per shard - 1000 write records per second, up to a max of 1 MB per second
+- as your data rate increases, you increase the number of shards
+- kinesis client library detects the number of shards and makes sure there is a record processor for each shard , if you have 2 consumer instances it will load balance the number of record processors
+- ensure number of instances does not exceed the number of shards
+- use cpu utilization should drive the quantity of consumer instances you have not the number of shards 
 
 
 
