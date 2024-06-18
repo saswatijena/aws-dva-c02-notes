@@ -600,6 +600,24 @@ memorydb
 - icoming emails saved to s3
 - is not subscription based
 
+# Kinesis
+- kinsesis streams
+    - data streams
+      - retains data forfrom 24 hrs to 365 days
+      - retains data in the form of shards
+      - each shard is a sequence of one or more data records and provides a fixed unit of capacity
+      - you can increase the capacity by increasing the number of shards
+      - order of records is always maintains
+    - video streams    
+- kinesis data fire hose
+    - no data retention
+    - no shards and no consumers
+    - capture, transform and load data continuosly into aws data stores
+- kinesis data analytics
+    - analyze, query and transform streamed data in **real time** using standard sql
+    - source is kinesis streams or firehose to redshift , s3, opensearch
+
+
 
   
 
