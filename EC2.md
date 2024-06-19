@@ -623,7 +623,45 @@ memorydb
 - as your data rate increases, you increase the number of shards
 - kinesis client library detects the number of shards and makes sure there is a record processor for each shard , if you have 2 consumer instances it will load balance the number of record processors
 - ensure number of instances does not exceed the number of shards
-- use cpu utilization should drive the quantity of consumer instances you have not the number of shards 
+- use cpu utilization should drive the quantity of consumer instances you have not the number of shards
+
+# ci/cd
+- continous integration: mergind code changes frequently
+- continous delivery : automating the build, test and deployment
+- continous deployment: fully automated release process eg code pipeline
+
+## code commit
+- centralized code repo, based on git
+- enables collaboration
+- version control system
+
+## codedeploy deployment approaches 
+- in place deployment
+    - the app is stopped on the first instance
+    - code deploy install the new version know as **Revision**
+    - code deploy continues to deploy to the next instance
+    - roll back is not a quick fix and you have to redeploy the previous version
+- b/g deployment
+    - code deploy provisions new instances independent of previous version
+    - roll back is easy, just set the load balancer to direct the traffic to blue environment
+ 
+- appsec file
+    - configuration file : defines the parameters to be used by codedeploy: eg. os, files, hooks etc
+    - appspec.yml saved in the root of the revision
+    - lifecycle event hooks have a very specific run order
+ 
+- lifecycle event hooks
+    - run order : lifecycle events are run in a specific order called a run order
+    - in place deployment : 3 phases : de-registering, installation, re-registering with the load balancer
+    - application stop -> download bundle -> before install -> install -> validate service -> application start -> after install
+ 
+## code pipeline 
+- orcehstrates build, test and deployment , pipeline is triggered everytime there is a change to your code
+- automated release process
+
+## code artifact 
+- artifact repo that makes it easy for developers to find the software packages they need
+- create a domain -> create repo in domain -> create an upstream repo (will connect to public repo)
 
 
 
