@@ -664,6 +664,25 @@ memorydb
 - create a domain -> create repo in domain -> create an upstream repo (will connect to public repo)
 
 
+# Elastic container service (ECS)
+- When using elastic beanstack you can deploy your docker container to single EC2 instance
+- you can deploy multiple docker instances to ECS cluster
+- to deploy docker application, upload your code to Elastic beanstalk. To upgrade upload and deploy new version
+- code can be uploaded from local machine or public s3 bucket
+- you can store your code in code commit, but must use elastic baenstalk cli
+
+# Cloudformation
+- manage, configure and provision aws resources/infrastructure as code
+- uses yaml or json template
+- upload it to cloudformation, uploads to s3
+- parameters: allows you to input custom values
+- conditions: make decisions based on parameters
+- resources: mandatory section, describes aws resource
+- mappings: allows you to create custom mappings like  region: AMI
+- transform: allows you to reference code located in s3
+- stack: resulting set of resources that cloudformation creates from template
+
+
 
   
 
