@@ -681,6 +681,23 @@ memorydb
 - mappings: allows you to create custom mappings like  region: AMI
 - transform: allows you to reference code located in s3
 - stack: resulting set of resources that cloudformation creates from template
+- we can use *outputs* sectinon to export values and *importValue* to import exported values from another stack
+
+# SAM 
+- allows you to define and provision serversless applications using cloudformation
+- sam package : packages your application and uploads to s3
+- sam deploy : deploys your serverless app using cloudformation
+
+# Nested stacks 
+- enables re-use of cloudformation code for common use cases
+- decalred withing resouces section of cloudformation template using the *stack* resource type
+
+# CDK (Cloud development kit)
+- allows you to build applications, define and deploy aws resources using a programming language of your choice
+- app: container for one or more stacks
+- stack: unit of deployment
+- construct: defines the aws resouces 
+- cdk init : creates a new project -> npm run build: compile -> cdk synth: systhesize to create cf template -> cdk deploy: deploy the stack using cloud formation
 
 
 
