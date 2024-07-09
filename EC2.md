@@ -630,20 +630,27 @@ memorydb
 - continous delivery : automating the build, test and deployment
 - continous deployment: fully automated release process eg code pipeline
 
-## code commit
+## code commit - continous integration
 - centralized code repo, based on git
 - enables collaboration
 - version control system
 
-## codedeploy deployment approaches 
+## code build - continous delivery
+- compiles source code, runs tests and produces packages that are ready to deploy
+
+## codedeploy deployment approaches  - continous delivery
 - in place deployment
     - the app is stopped on the first instance
     - code deploy install the new version know as **Revision**
     - code deploy continues to deploy to the next instance
     - roll back is not a quick fix and you have to redeploy the previous version
+    - capacity is reduced during deployment
+ 
 - b/g deployment
     - code deploy provisions new instances independent of previous version
     - roll back is easy, just set the load balancer to direct the traffic to blue environment
+    - you will pay for 2 envs until you terminate the old servers
+    - safest option
  
 - appsec file
     - configuration file : defines the parameters to be used by codedeploy: eg. os, files, hooks etc
@@ -652,10 +659,10 @@ memorydb
  
 - lifecycle event hooks
     - run order : lifecycle events are run in a specific order called a run order
-    - in place deployment : 3 phases : de-registering, installation, re-registering with the load balancer
+    - in place deployment : 3 phases : de-registering, installation, re-registering with the load balancer 🔥
     - application stop -> download bundle -> before install -> install -> validate service -> application start -> after install
  
-## code pipeline 
+## code pipeline  - continous deployment
 - orcehstrates build, test and deployment , pipeline is triggered everytime there is a change to your code
 - automated release process
 
@@ -671,6 +678,9 @@ memorydb
 - code can be uploaded from local machine or public s3 bucket
 - you can store your code in code commit, but must use elastic baenstalk cli
 
+- fargate : serverless : you dont need to worry about the underlying EC2 instances!
+- ECR : container registry : this is where you can store your container images. docker or windows container
+
 # Cloudformation
 - manage, configure and provision aws resources/infrastructure as code
 - uses yaml or json template
@@ -684,13 +694,14 @@ memorydb
 - we can use *outputs* sectinon to export values and *importValue* to import exported values from another stack
 
 # SAM 
-- allows you to define and provision serversless applications using cloudformation
+- allows you to define and provision serverless applications using cloudformation
 - sam package : packages your application and uploads to s3
 - sam deploy : deploys your serverless app using cloudformation
 
-# Nested stacks 
+# Cloud formation Nested stacks 
 - enables re-use of cloudformation code for common use cases
 - decalred withing resouces section of cloudformation template using the *stack* resource type
+- template store in s3: create a cloud formation template, store it in s3, and reference it in the resources section. resource type is *stack*
 
 # CDK (Cloud development kit)
 - allows you to build applications, define and deploy aws resources using a programming language of your choice
@@ -698,6 +709,20 @@ memorydb
 - stack: unit of deployment
 - construct: defines the aws resouces 
 - cdk init : creates a new project -> npm run build: compile -> cdk synth: systhesize to create cf template -> cdk deploy: deploy the stack using cloud formation
+
+# Amplify
+- helps front end developers to create full stack web and mobile applications on AWS
+- takes care of creating a reliable backend
+- integrates with cognito, s3, lambda, and api gateway to create a reliable backend
+- amplify hosting 🔥 : static web hosting that integrates with your code repo for ci/cd (deploys every time code change is made)
+- amplify studio: simple visual tool. used to configure the frontend and backend of your application
+
+# Cloud watch
+- is all about monitoring
+- default ec2 host level metric : cpu, network, didsk and status check
+- use the cloudwatch agent for operating system level metrics like memory usage, process and cpu idle time
+- monitor and store your logs to help you better understand your systems and applications
+- you can create an alarm to monitor any amaxon cloudwatch metric in your account, generate and alert or take some action. 
 
 
 
