@@ -722,7 +722,10 @@ memorydb
 - default ec2 host level metric : cpu, network, didsk and status check
 - use the cloudwatch agent for operating system level metrics like memory usage, process and cpu idle time
 - monitor and store your logs to help you better understand your systems and applications
-- you can create an alarm to monitor any amaxon cloudwatch metric in your account, generate and alert or take some action. 
+- you can create an alarm to monitor any amaxon cloudwatch metric in your account, generate and alert or take some action.
+- cloudwatch dashbord - monitor the metrics, can be multi region, save once done
+
+
 
 
 
