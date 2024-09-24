@@ -520,6 +520,18 @@ memorydb
     - when instrumenting your app you can record additional information about requests by using annotations
     - the are kye value pairs
  
+#Dynamo DB
+- is a low latency nosql db
+- supports both document and key value  data models, json, html and xml
+- consistency models
+    - eventually consistency
+    - strongly consistency
+    - dynamodb transactions (acid, eg. credit card payments)
+    - consists of tables, items and attributes
+    - primary keys
+        - partition key
+        - composite key (partition + sort) eg id and timestamp
+ 
 # KMS and encrption
 - key management service
 - cmk (customer managed key) -
