@@ -520,7 +520,7 @@ memorydb
     - when instrumenting your app you can record additional information about requests by using annotations
     - the are kye value pairs
  
-#Dynamo DB
+# Dynamo DB
 - is a low latency nosql db
 - supports both document and key value  data models, json, html and xml
 - consistency models
@@ -531,6 +531,41 @@ memorydb
     - primary keys
         - partition key
         - composite key (partition + sort) eg id and timestamp
+     
+  ## Dynamodb access control
+  - fine grained access control using iam
+  - iam condition parameter ```dynamodb:LeadingKeys``` allows users to access only the items where the partition key value matches their user_id
+
+  ## Dynamodb indexes
+  - enable fast queries on specific data columns
+  - gives you a diff view of your data based on alternative partition /sort keys
+  - local secondary index : uses the same partition key and diff sort key, must be created when you create table
+  - global secondary index : uses diff partition key and diff sort key, can be created anytime
+
+ ### diff b/w scan and query
+  - scan examinses every itmes in the tble and by default returns all data attributes
+  - For quries and scans use the ```ProjectionExpression``` parameter to refine the results
+  - Query finds itmes using only the primary key
+  - qyery results are always sorted by sort key in asc order, can be reversed by ```ScanIndexForward``` parameter to false
+
+ ### performance
+  - to reduce the impact of a query or scan by setting a smaller page size
+  - isolate scan operation to specific tables
+  - try paraller scans rather then the default sequential scan
+  - query is generally efficient then a scan
+  - design tables in a way you can use the query, get, or batchgetitem api's
+
+  ## Dynamo db api calls
+  - correct iam permissions are required to make an API call
+  - look at the api calls
+
+  ## Dynamodb provisioned throughput
+  - see video
+  - is measure in capacity units
+  - write capacity units: 1 1kb write per second
+  - strongly consistent reads : 1 4kb read per second
+  - enventually consistent reads: 2 4kb reads per second
+
  
 # KMS and encrption
 - key management service
