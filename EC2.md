@@ -522,14 +522,14 @@ memorydb
  
 # Dynamo DB
 - is a low latency nosql db
-- supports both document and key value  data models, json, html and xml
+- supports both document and key value data models, json, html and xml
 - consistency models
-    - eventually consistency
+    - eventually consistency (default)
     - strongly consistency
     - dynamodb transactions (acid, eg. credit card payments)
     - consists of tables, items and attributes
     - primary keys
-        - partition key
+        - partition key eg (customer id, product id, etc) - unique identifier
         - composite key (partition + sort) eg id and timestamp
      
   ## Dynamodb access control
@@ -563,8 +563,32 @@ memorydb
   - see video
   - is measure in capacity units
   - write capacity units: 1 1kb write per second
-  - strongly consistent reads : 1 4kb read per second
-  - enventually consistent reads: 2 4kb reads per second
+  - strongly consistent read capacity unit : 1 4kb read per second
+  - enventually consistent read capacity unit: 2 4kb reads per second
+
+  ## Dynamodb on demand capacity
+  - use for unknown workloads, unpredictable application traffic
+
+  ## Dynamodb accelerator DAX
+  - good for read heavy workloads
+  - it is a write through caching service. Data is written to the cache and the backend store at the same time
+  - point your api to your dax cluster
+  - it caters for eventually consistent reads, dax is not benifitial for strongly consistent reads, appliation that are write intensive, that do not do heavy reads
+
+  ## Dynamodb TTL
+  - Defines expiry time for your data. Expired items marked for deletion and deleted within 48 hours
+  - great for removing irrelevant data, old or expired data, eg session data, even logs, temporarys
+  - helps save money
+
+  ## Dynamodb streams 
+  - its a time ordered sequence of item level modifications in db tables
+  - encrypted and stored for 24 hrs
+  - can be used as event source for lambda to take action on item
+
+  ## Provisioned throughput exceeded
+  - if you see provisionedthroughputexceeded error means the numbe of requests it too high
+  - better flow control: exponential back off improves flow by retrying requests using progressively longer waits
+  - exponenetial backoff is feature of every aws sdk service, eg. s3, cloudformation, ses etc
 
  
 # KMS and encrption
