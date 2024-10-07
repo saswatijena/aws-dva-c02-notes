@@ -795,6 +795,23 @@ memorydb
 - monitor and store your logs to help you better understand your systems and applications
 - you can create an alarm to monitor any amaxon cloudwatch metric in your account, generate and alert or take some action.
 - cloudwatch dashbord - monitor the metrics, can be multi region, save once done
+- eg. do you need to monitor the performance of aws resources
+
+# Cloud trail
+- is used to record all the api calls for aws accounts
+- delivers logs file to s3 bucket, api activity telated to creation, deletion and modification of aws resources
+- can be integrated with cloudwatch logs
+- eg. audit log of user activity in aws account
+
+# Cloud watch actions
+- allows you to publish, monitor and alert a variety of metric
+- putMetricData : publishes metric data points to cloudwatch
+- putMetricAlarm : creates an alarm associated with a metric to alert you if a threshold has been reached.
+
+# Cloud watch logs insights
+- to interactively query and analyze adata stored in cloudwatch
+- generate visualizations, eg. bar graph, line graph, pie chart etc
+- they give you loads of examples
 
 
 
