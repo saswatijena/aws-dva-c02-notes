@@ -424,7 +424,7 @@ memorydb
   - supported api types
       - RESTful apis : optimized for stateless, serverless workloads
       - Webscocket apis : for real time, two way, stateful communication eg. chat apps
-  - allows you to connect ot apps running on lambda, ec2, dynamodb etc
+  - allows you to connect to apps running on lambda, ec2, dynamodb etc
   - supports multiple endpoints and targets
   - supports multiple version
   - logs calls, latencies, error rates to cloudwatch
