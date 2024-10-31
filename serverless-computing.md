@@ -1,5 +1,5 @@
 # Serverless 
- - Enables you to build scalable application quickly without managing servers. [Continous Scaling]
+ - Enables you to build scalable application quickly without managing servers. [Continuous Scaling]
  - Serverless apps are event driven and you are only charged when you code is executed [Low Cost]
  - AWS handles all the heavy lifting, you can focus on writing code instead of configuring servers
 
@@ -13,6 +13,6 @@
   - Lambda are created with an execution role, which can be allowed to get access to s3, dynamodb etc.
    
   ## API Gateway
-  - Provides an enpoint to your applications running in AWS
-  - Throttling - you can throttle API gateway to prenvent your application from being overloaded by too many requests
-  - Cloudwatch - Everything is logged to cloudwatch for eb. api calls, latencies and errors. 
+  - Provides an endpoint to your applications running in AWS
+  - Throttling - you can throttle API gateway to prevent your application from being overloaded by too many requests
+  - Cloudwatch - Everything is logged to cloudwatch for eg. api calls, latencies and errors. 
