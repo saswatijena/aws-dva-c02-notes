@@ -10,6 +10,8 @@
     - Triggered by Events like changes made to data in s3 or dynamodb
     - Triggered by user requests like you can use api gateway to configure an http endpoint allowing you to trigger a function at any time using an http request
    
+  - Lambda are created with an execution role, which can be allowed to get access to s3, dynamodb etc.
+   
   ## API Gateway
   - Provides an enpoint to your applications running in AWS
   - Throttling - you can throttle API gateway to prenvent your application from being overloaded by too many requests
