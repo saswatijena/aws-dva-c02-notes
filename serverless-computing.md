@@ -24,6 +24,26 @@
  - update your aliases when updating the code
  - Weighted alias - you can distribute traffic between two versions
 
+### Lambda data storage patterns
+ - lambda are stateless and ephemeral (not used for application that need to run for longer than 15 minutes)
+#### Lambda ephemeral storage
+ - **/tmp**
+   - temporary storage (provided in the *execution environment* of the lambda function)
+   - 512 MB ,configurable up to 10 GB
+   - dynamic read/write
+   - like a cached file system - data can be accessed by multiple invocation of your function *sharing the execution environment* in order to optimize performance.
+   - data is not persistent, only available for the lifetime of the execution environment
+  
+ - **Lamda layer**
+    - additional libraries needed by the function can be included in your lambda deployment package, this increases the deployment package size.
+    - (Best practice) add libraries and sdks as a layer that can referenced by multiple functions (best practice) (50MB zipped and 250 MB unzipped)
+    - updates requires a new layer
+    - shared across execution environments
+
+ #### Lambda persistent storage
+ - **S3** (object storage only) : cannot directly open and write data to objects. If you want to change data, you need to upload a new object
+ - **EFS** - shared file system, data is persisted and can be *dynamically updated* , needs to be mounted by the function when execution environment is created. Lambda function must be in the same vpc as EFS File system
+
 ## Step functions
  - great way to visualize serverless apps
  - automates trigger and track of each step of your workflow. The output of one step is often the input to the next.
