@@ -22,7 +22,22 @@
  - $LATEST is the latest version
  - use lambda versioning and aliases to point your applications to a specific version
  - update your aliases when updating the code
- - Weighted alias - you can distribute traffic between two versions 
+ - Weighted alias - you can distribute traffic between two versions
+
+## Step functions
+ - great way to visualize serverless apps
+ - automates trigger and track of each step. The output of one step is often the input to the next.
+ - logging, so you can track when someting goes wrong
+ - **standarad workfolows**
+  - long running, durable and auditable workflows that may run upto a year.
+  - tasks are never executed more than once unless you explicitly specidy retry actions
+  - non-idemptent(cannot be processed multiple times and always causes a change in state) actions like processing payements
+ - **express workflows**
+  - great for high volume, event processing type workloads
+  - executed more than once or require multiple concurrent execution
+  - idempotent , no additional side effects
+   - **synchronous express workflow**, begins, waits until it completes, returns the result
+   - **asynchronous express workflow**, confirms the workflow has started and result is returned later. the result of the workflow can be found in cloudwatch logs.
    
 ## API Gateway
  - Provides an endpoint to your applications running in AWS
