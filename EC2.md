@@ -406,7 +406,7 @@ memorydb
 
   ## versioning
   - $latest is the latest version
-  - use lambda versioning ans aliases to point your applications to a specific version
+  - use lambda versioning and aliases to point your applications to a specific version
   - update your aliases when updating the code
     
   ## concurrent executions
@@ -463,13 +463,13 @@ memorydb
   - automates trigger and track of each step. The output of one step is often the input to the next.
   - logging, so you can track when someting goes wrong
   - **standarad workfolows**
-      - long running, durable and auditable workflows that may run upto a year.
-      - tasks are never executed more than once unless you explicitly specidy retry actions
+      - long running, durable and auditable workflows that may run upto a year. Full execution history is available for upto 90 days after completion.
+      - tasks are never executed more than once unless you explicitly specify retry actions
       - non-idemptent(cannot be processed multiple times and always causes a change in state) actions like processing payements
   - **express workflows**
       - great for high volume, event processing type workloads
       - executed more than once or require multiple concurrent execution
-      - idempotent , no additional side effects
+      - idempotent, no additional side effects, eg. transforming data and storing result in dynamodb, reading data from db
       - **synchronous express workflow**, begins, waits until it completes, returns the result
       - **asynchronous express workflow**, confirms the workflow has started and result is returned later. the result of the workflow can be found in cloudwatch logs.
    
