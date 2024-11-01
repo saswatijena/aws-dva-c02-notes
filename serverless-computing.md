@@ -48,17 +48,16 @@
  - great way to visualize serverless apps
  - automates trigger and track of each step of your workflow. The output of one step is often the input to the next.
  - logs the state of each step, so you can track when something goes wrong
-
  - **standard workflows**
-  - long running, durable and auditable workflows that may run up to a year. Full execution history is available for up to 90 days after completion.
-  - at-most-once
-  - tasks are never executed more than once unless you explicitly specify retry actions
-  - non-idempotent(cannot be processed multiple times and always causes a change in state) actions like processing payments
+   - long running, durable and auditable workflows that may run up to a year. Full execution history is available for up to 90 days after completion.
+   - at-most-once
+   - tasks are never executed more than once unless you explicitly specify retry actions
+   - non-idempotent(cannot be processed multiple times and always causes a change in state) actions like processing payments
  - **express workflows**
-  - great for high volume, event processing type workloads
-  - at-least-once
-  - executed more than once or require multiple concurrent execution
-  - idempotent , no additional side effects. eg. reading data from db
+   - great for high volume, event processing type workloads
+   - at-least-once
+   - executed more than once or require multiple concurrent execution
+   - idempotent , no additional side effects. eg. reading data from db
    - **synchronous express workflow**, begins, waits until it completes, returns the result. eg confirm successful payment before sending an order.
    - **asynchronous express workflow**, begins, confirms the workflow has started and result is returned later. the result of the workflow can be found in cloud watch logs. eg. a messaging system
    
