@@ -13,10 +13,10 @@
   - Lambda are created with an execution role, which can be allowed to get access to s3, dynamodb etc.
 
   ### Lambda versioning
-    - $latest is the latest version
-    - use lambda versioning and aliases to point your applications to a specific version
-    - update your aliases when updating the code
-    - Weighted alias
+   - $latest is the latest version
+   - use lambda versioning and aliases to point your applications to a specific version
+   - update your aliases when updating the code
+   - Weighted alias
    
   ## API Gateway
   - Provides an endpoint to your applications running in AWS
