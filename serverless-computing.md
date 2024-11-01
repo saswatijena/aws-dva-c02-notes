@@ -3,6 +3,12 @@
  - Serverless apps are event driven and you are only charged when you code is executed [Low Cost]
  - AWS handles all the heavy lifting, you can focus on writing code instead of configuring servers
 
+ ## Characteristics of serverless architechture
+  - Event Driven and Ashynchronous
+  - Building blocks - Think of aws services as builing blocks that can be integrated together to create and applications
+  - Loosely coupled
+  - Flexibility and Scalability - Services and components operate and scale independently of each other
+
   ## Lambda 
   - You are charged based on the number of requests, their duration and the amount of memory used by your lambda function
   - **Event-driven-architecture**
