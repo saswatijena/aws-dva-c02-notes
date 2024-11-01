@@ -3,9 +3,9 @@
  - Serverless apps are event driven and you are only charged when you code is executed [Low Cost]
  - AWS handles all the heavy lifting, you can focus on writing code instead of configuring servers
 
-## Characteristics of serverless architechture
- - Event Driven and Ashynchronous
- - Building blocks - Think of aws services as builing blocks that can be integrated together to create and applications
+## Characteristics of serverless architecture
+ - Event Driven and Asynchronous
+ - Building blocks - Think of aws services as buildawsing blocks that can be integrated together to create and applications
  - Loosely coupled
  - Flexibility and Scalability - Services and components operate and scale independently of each other
 
@@ -27,20 +27,22 @@
 ## Step functions
  - great way to visualize serverless apps
  - automates trigger and track of each step of your workflow. The output of one step is often the input to the next.
- - logs the state of each step, so you can track when someting goes wrong
+ - logs the state of each step, so you can track when something goes wrong
 
- - **standarad workfolows**
-  - long running, durable and auditable workflows that may run upto a year. Full execution history is available for upto 90 days after completion.
+ - **standard workflows**
+  - long running, durable and auditable workflows that may run up to a year. Full execution history is available for up to 90 days after completion.
+  - at-most-once
   - tasks are never executed more than once unless you explicitly specify retry actions
-  - non-idemptent(cannot be processed multiple times and always causes a change in state) actions like processing payements
+  - non-idempotent(cannot be processed multiple times and always causes a change in state) actions like processing payments
  - **express workflows**
   - great for high volume, event processing type workloads
+  - at-least-once
   - executed more than once or require multiple concurrent execution
-  - idempotent , no additional side effects. eg. transforming data and storing result in dynamodb, reading data from db
-   - **synchronous express workflow**, begins, waits until it completes, returns the result. steps are completed one at a time.
-   - **asynchronous express workflow**, begins, confirms the workflow has started and result is returned later. the result of the workflow can be found in cloudwatch logs.
+  - idempotent , no additional side effects. eg. reading data from db
+   - **synchronous express workflow**, begins, waits until it completes, returns the result. eg confirm successful payment before sending an order.
+   - **asynchronous express workflow**, begins, confirms the workflow has started and result is returned later. the result of the workflow can be found in cloud watch logs. eg. a messaging system
    
 ## API Gateway
  - Provides an endpoint to your applications running in AWS
  - Throttling - you can throttle API gateway to prevent your application from being overloaded by too many requests
- - Cloudwatch - Everything is logged to cloudwatch for eg. api calls, latencies and errors. 
+ - Cloud watch - Everything is logged to cloud watch for eg. api calls, latencies and errors. 
