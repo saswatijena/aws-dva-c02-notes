@@ -11,6 +11,12 @@
     - Triggered by user requests like you can use api gateway to configure an http endpoint allowing you to trigger a function at any time using an http request
    
   - Lambda are created with an execution role, which can be allowed to get access to s3, dynamodb etc.
+
+  ### Lambda versioning
+    - $latest is the latest version
+    - use lambda versioning and aliases to point your applications to a specific version
+    - update your aliases when updating the code
+    - Weighted alias
    
   ## API Gateway
   - Provides an endpoint to your applications running in AWS
