@@ -44,6 +44,12 @@
  - **S3** (object storage only) : cannot directly open and write data to objects. If you want to change data, you need to upload a new object
  - **EFS** - shared file system, data is persisted and can be *dynamically updated* , needs to be mounted by the function when execution environment is created. Lambda function must be in the same vpc as EFS File system
 
+ #### lambda environment variables and parameters
+ - use environment variables are key value pairs to change function behavior without changing code
+ - configureable parameters: memeory, ephemeral storage, function timeout. connect to other aws services like cloud watch, x-ray , vpc and efs file systems, monitoring, concurrency, permissions, function url, tags, 
+ - they are key value pairs
+ - they are locked when version is published
+
 ## Step functions
  - great way to visualize serverless apps
  - automates trigger and track of each step of your workflow. The output of one step is often the input to the next.
