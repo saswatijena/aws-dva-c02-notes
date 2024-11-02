@@ -37,8 +37,8 @@
 ### Lambda data storage patterns
  - lambda are stateless and ephemeral (not used for application that need to run for longer than 15 minutes)
 
-#### Lambda ephemeral storage
- - **/tmp**
+#### Native within Lamda
+ - **/tmp Ephemeral Storage**
    - temporary storage (provided in the *execution environment* of the lambda function)
    - 512 MB ,configurable up to 10 GB
    - dynamic read/write
@@ -51,7 +51,7 @@
     - updates requires a new layer
     - shared across execution environments
 
- ### Lambda persistent storage
+ ### External Storage Options
  - **S3** (object storage only) : cannot directly open and write data to objects. If you want to change data, you need to upload a new object
  - **EFS** - shared file system, data is persisted and can be *dynamically updated* , needs to be mounted by the function when execution environment is created. Lambda function must be in the same vpc as EFS File system
 
