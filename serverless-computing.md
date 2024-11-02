@@ -26,6 +26,7 @@
 
 ### Lambda data storage patterns
  - lambda are stateless and ephemeral (not used for application that need to run for longer than 15 minutes)
+
 #### Lambda ephemeral storage
  - **/tmp**
    - temporary storage (provided in the *execution environment* of the lambda function)
@@ -40,17 +41,17 @@
     - updates requires a new layer
     - shared across execution environments
 
- #### Lambda persistent storage
+ ### Lambda persistent storage
  - **S3** (object storage only) : cannot directly open and write data to objects. If you want to change data, you need to upload a new object
  - **EFS** - shared file system, data is persisted and can be *dynamically updated* , needs to be mounted by the function when execution environment is created. Lambda function must be in the same vpc as EFS File system
 
- #### lambda environment variables and parameters
+ ### Lambda environment variables and parameters
  - use environment variables are key value pairs to change function behavior without changing code
  - configureable parameters can be found under the configuration tab: memeory, ephemeral storage, function timeout. connect to other aws services like cloud watch, x-ray , vpc and efs file systems, monitoring, concurrency, permissions, function url, tags, 
  - they are key value pairs
  - they are locked when version is published
 
-#### Lambda event lifecycle and errors
+### Lambda event lifecycle and errors
  - when invoking a function you can invoke it *synchronously* or *asynchronously*
  - if a function errors, lambda automatically performs 2 **retries**, waits for 1 min for 1st try and then 2 min for 2nd try
  - if a function errors, you can also use **dead letter queues** : save failed invocations for further invocations , are associated with particular version of a function, can be an even source for a function, allowing your to re-process events. SQS (holds failed events in the queue until they are retrieved) or SNS (fan-out to multiple destinations) can be used
@@ -59,6 +60,12 @@
      - SNS
      - lambda (invoke another lambda)
      - EventBridge
+  
+### Lambda deployment packaging options
+- when working on aws console: a zip file is automatically created in the background
+- zip file contains application code and optionally dependencies
+- you can create a deployment package zip file on your own and use it, however if deployment package is more than 50 mb, upload the zip file on s3 in the region when you would like to create your function
+- **lambda layers** is a distribution mechanism , where it can use used by multiple functions, reducing the size of deployment package, reduces the size of deployment package and enables function to initialize faster.
 
 ## Step functions
  - great way to visualize serverless apps
