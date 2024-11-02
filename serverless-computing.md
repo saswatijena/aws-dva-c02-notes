@@ -46,9 +46,19 @@
 
  #### lambda environment variables and parameters
  - use environment variables are key value pairs to change function behavior without changing code
- - configureable parameters: memeory, ephemeral storage, function timeout. connect to other aws services like cloud watch, x-ray , vpc and efs file systems, monitoring, concurrency, permissions, function url, tags, 
+ - configureable parameters can be found under the configuration tab: memeory, ephemeral storage, function timeout. connect to other aws services like cloud watch, x-ray , vpc and efs file systems, monitoring, concurrency, permissions, function url, tags, 
  - they are key value pairs
  - they are locked when version is published
+
+#### Lambda event lifecycle and errors
+ - when invoking a function you can invoke it *synchronously* or *asynchronously*
+ - if a function errors, lambda automatically performs 2 **retries**, waits for 1 min for 1st try and then 2 min for 2nd try
+ - if a function errors, you can also use **dead letter queues** : save failed invocations for further invocations , are associated with particular version of a function, can be an even source for a function, allowing your to re-process events. SQS (holds failed events in the queue until they are retrieved) or SNS (fan-out to multiple destinations) can be used
+ - **lambda destinations**, configure lambda to send the invocation records(success or error) to another services (eg, for success send to SQS and error send to SNS)
+     - SQS
+     - SNS
+     - lambda (invoke another lambda)
+     - EventBridge
 
 ## Step functions
  - great way to visualize serverless apps
