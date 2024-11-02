@@ -24,6 +24,16 @@
  - update your aliases when updating the code
  - Weighted alias - you can distribute traffic between two versions
 
+### Lambda concurrent executions
+ - default is 1000 per regions
+ - 429 http status code for too many requests exception, request troughput limit exceeded
+ - request an increase in limit by submitting a request to AWS support center or configure reserved concurrency (guarentees a set number of executions which will always be available for your critical function, however this also acts as a limit)
+
+### Lambda and vpc access 
+  - its possible to enable lambda to access resources that are inside a private vpc
+  - to do that we need to provide vpc config information, private subnet id, security group id
+  - lambda creates ENI(elastic network interfaces) using IPs from the private subnets. The security group allows your function to access the resources in the vpc.
+
 ### Lambda data storage patterns
  - lambda are stateless and ephemeral (not used for application that need to run for longer than 15 minutes)
 
