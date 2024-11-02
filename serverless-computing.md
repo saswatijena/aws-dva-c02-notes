@@ -108,5 +108,29 @@
  - Supports multiple endpoints and targets
  - Supports multiple versions, so you can have different versions for prod, dev, test
  - Throttling - you can throttle API gateway to prevent your application from being overloaded by too many requests
+
+### Advanced API gateway
+  - you can import api's using the external definition files e.g. OpenAPI formerly known as swagger
+  - when dealing with legacy applications which use SOAP, you can configure api gateway as a **SOAP web service passthrough**, or you can use api gateway to **convert the xml response to json**
+
+### API Gateway mock endpoints
+- allows developers to create,test and debug software by creating mock endpoints
+- allows you to simulate the responses and behaviours that you would expect from the real API.
+
+### API Gateway stages for testing deployed code
+- logical reference, that references the lifecycle stage of api (eg. dev, prod, v3 etc)
+- each stage has a unique invoke url
+- **stage variables** are key value pair to change the behaviour of api  (dynamic deployments)
+
+### api request and response transformations 
+- can transform api request and response using paramter mapping
+- request transformation : change header, query string or request path
+- response transformation : change the header or status code of an api response
+
+### api gateway caching and throttling
+- caches responses for specified TTL (5 mins default), improves performance and latency
+- throttling is to prevent your gateway from being overwhelemed with too many requests. 10K requests per second oer regions, 5k max concurrent requests across all api's per region. 429 too many error, you can request to increase the limit
+
+
  - Cloud watch - Everything is logged to cloud watch for eg. api calls, latencies and errors.
  - is serverless - low cost and scales automatically
