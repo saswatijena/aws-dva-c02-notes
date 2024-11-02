@@ -102,6 +102,11 @@
    - **asynchronous express workflow**, begins, confirms the workflow has started and result is returned later. the result of the workflow can be found in cloud watch logs. eg. a messaging system
    
 ## API Gateway
- - Provides an endpoint to your applications running in AWS
+ - Allows you to publish, maintan and monitor APIs
+ - Supported API Types : Restful APIs and WebSocket APIs
+ - Provides an endpoint to your applications running in AWS (Lambda, EC3, Elastic bean stalk, dynamodb, kenisis)
+ - Supports multiple endpoints and targets
+ - Supports multiple versions, so you can have different versions for prod, dev, test
  - Throttling - you can throttle API gateway to prevent your application from being overloaded by too many requests
- - Cloud watch - Everything is logged to cloud watch for eg. api calls, latencies and errors. 
+ - Cloud watch - Everything is logged to cloud watch for eg. api calls, latencies and errors.
+ - is serverless - low cost and scales automatically
