@@ -67,6 +67,23 @@
 - you can create a deployment package zip file on your own and use it, however if deployment package is more than 50 mb, upload the zip file on s3 in the region when you would like to create your function
 - **lambda layers** is a distribution mechanism , where it can use used by multiple functions, reducing the size of deployment package, reduces the size of deployment package and enables function to initialize faster.
 
+### Lambda performance tuning best practices 
+- contol cpu capacity by controlling memory - **increasing memory** increases cpu
+- 128 MB (default) , configurable upto 10 GB
+- adding memory will improve performance if the function is either memory or cpu bound, it also reduces the duration that the function runs for
+
+#### The execution environment
+- download code -> configure -> static initialization (runs function static initialization code;imports libraries and dependencies) (adds the most amount of latency) -> Executes function
+- three factors that contribute to latency
+  - code : the amount of code that needs to run during initialization phase
+  - function package size : including imported libraries, dependencies, and lambda layers
+  - performance : libraries and other services that require connections to be set up (e.g. connections to database or s3)
+- optimizing static initializations step
+    - amount of code that needs to run during initialization
+    - including imported libraies , depedencites and lambda layers
+    - libraries and other services that require connections to be set up
+    - **import only what you need** avoid importing entire sdk 🔥 (eg instead of import AWS from aws-sdk, import Dynamodb from aws-sdk/clients/Dynamodb)
+      
 ## Step functions
  - great way to visualize serverless apps
  - automates trigger and track of each step of your workflow. The output of one step is often the input to the next.
