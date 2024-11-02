@@ -108,6 +108,8 @@
  - Supports multiple endpoints and targets
  - Supports multiple versions, so you can have different versions for prod, dev, test
  - Throttling - you can throttle API gateway to prevent your application from being overloaded by too many requests
+ - Cloud watch - Everything is logged to cloud watch for eg. api calls, latencies and errors.
+ - is serverless - low cost and scales automatically
 
 ### Advanced API gateway
   - you can import api's using the external definition files e.g. OpenAPI formerly known as swagger
@@ -120,17 +122,39 @@
 ### API Gateway stages for testing deployed code
 - logical reference, that references the lifecycle stage of api (eg. dev, prod, v3 etc)
 - each stage has a unique invoke url
-- **stage variables** are key value pair to change the behaviour of api  (dynamic deployments)
+- **stage variables** are key value pair to change the behaviour of api (dynamic deployments)
 
-### api request and response transformations 
-- can transform api request and response using paramter mapping
+### API request and response transformations 
+- can transform http request and response using **parameter mapping**
 - request transformation : change header, query string or request path
 - response transformation : change the header or status code of an api response
 
-### api gateway caching and throttling
+### API Gateway caching and throttling
 - caches responses for specified TTL (5 mins default), improves performance and latency
-- throttling is to prevent your gateway from being overwhelemed with too many requests. 10K requests per second oer regions, 5k max concurrent requests across all api's per region. 429 too many error, you can request to increase the limit
+- throttling is to prevent your gateway from being overwhelemed with too many requests. 10K requests per second per region, 5k max concurrent requests across all api's per region. 429 too many error, you can request to increase the limit
+
+## X-Ray 
+- is a tool which helps developers analyze and debug **distributed applications**
+- provides a service map which is visual representation of app
+- you can use x-ray with aws services or also integrate with your apps written java, node, etc and it will monitor you api calls
+- x-ray agent must be **installed** on ec2 instance. use sdk to **instrument** your application to send traces to x-ray
+- x-ray sdk gathers information from request and response headers, the code in your application and metadata about the aws resources on which it runs and sends this trace data to x-ray eg. incoming http requests, error codes, latency data.
+- reports on latency, http status code and errors
+- needs **x-ray sdk** (for instrumentation) and **x-ray deamon**
+- x-ray deamon needs to be installed on EC2 instances or on prem server or elastic beanstalk. But containers, install x-ray deamon in its own docker container on your ECS cluster along side your app
+- **annotations**
+    - when instrumenting your app you can record additional information about requests by using annotations
+    - they are user-defined key value pairs
+    - allow you to group related traces, filter or search using the key values
 
 
- - Cloud watch - Everything is logged to cloud watch for eg. api calls, latencies and errors.
- - is serverless - low cost and scales automatically
+ 
+
+
+
+
+
+
+
+
+
