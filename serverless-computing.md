@@ -51,7 +51,7 @@
     - updates requires a new layer
     - shared across execution environments
 
- ### External Storage Options
+ #### External Storage Options
  - **S3** (object storage only) : cannot directly open and write data to objects. If you want to change data, you need to upload a new object
  - **EFS** - shared file system, data is persisted and can be *dynamically updated* , needs to be mounted by the function when execution environment is created. Lambda function must be in the same vpc as EFS File system
 
